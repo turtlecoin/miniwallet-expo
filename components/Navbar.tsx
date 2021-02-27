@@ -10,16 +10,28 @@ export function Navbar() {
     return (
         <Footer style={{ backgroundColor: "#43b380" }}>
             <FooterTab>
-                <Button onPress={() => goTo("home")}>
+                <Button
+                    style={{ backgroundColor: "#43b380" }}
+                    onPress={() => goTo("home")}
+                >
                     <Text style={{ color: "#FFF" }}>Home</Text>
                 </Button>
-                <Button onPress={() => goTo("send")}>
+                <Button
+                    style={{ backgroundColor: "#43b380" }}
+                    onPress={() => goTo("send")}
+                >
                     <Text style={{ color: "#FFF" }}>Send</Text>
                 </Button>
-                <Button onPress={() => goTo("receive")}>
+                <Button
+                    style={{ backgroundColor: "#43b380" }}
+                    onPress={() => goTo("receive")}
+                >
                     <Text style={{ color: "#FFF" }}>Receive</Text>
                 </Button>
-                <Button onPress={() => goTo("account")}>
+                <Button
+                    style={{ backgroundColor: "#43b380" }}
+                    onPress={() => goTo("account")}
+                >
                     <Text style={{ color: "#FFF" }}>Account</Text>
                 </Button>
             </FooterTab>
