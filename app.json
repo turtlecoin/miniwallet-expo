@@ -1,21 +1,26 @@
 {
-    "name": "trtl-miniwallet",
-    "displayName": "TRTL Miniwallet",
-    "expo": {
-        "name": "TRTL Miniwallet",
-        "slug": "trtl-miniwallet",
-        "version": "0.1.0",
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "bundleIdentifier": "lol.trtl.miniwallet"
-        }
-    },
+  "name": "trtl-miniwallet",
+  "displayName": "TRTL Miniwallet",
+  "expo": {
+    "name": "TRTL Miniwallet",
+    "slug": "trtl-miniwallet",
+    "version": "0.1.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-        "bundleIdentifier": "lol.trtl.miniwallet",
-        "buildNumber": "0.1.0"
+      "bundleIdentifier": "lol.trtl.miniwallet"
     },
     "android": {
-        "package": "lol.trtl.miniwallet",
-        "versionCode": 1
+      "package": "lol.trtl.miniwallet"
     }
+  },
+  "ios": {
+    "bundleIdentifier": "lol.trtl.miniwallet",
+    "buildNumber": "0.1.1"
+  },
+  "android": {
+    "package": "lol.trtl.miniwallet",
+    "versionCode": 1
+  }
 }
