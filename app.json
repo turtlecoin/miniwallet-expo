@@ -1,0 +1,10 @@
+{
+    "name": "miniwallet-expo",
+    "displayName": "miniwallet-expo",
+    "expo": {
+        "name": "miniwallet-expo",
+        "slug": "miniwallet-expo",
+        "version": "1.0.0",
+        "assetBundlePatterns": ["**/*"]
+    }
+}
