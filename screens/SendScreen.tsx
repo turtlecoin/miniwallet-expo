@@ -103,7 +103,7 @@ export function SendScreen({
                                 onChangeText={(amt) => {
                                     setAmount(amt);
                                 }}
-                                placeholder="0.001"
+                                placeholder="0.00"
                                 style={{ textAlign: "right" }}
                             />
                         </Item>
