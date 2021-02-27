@@ -1,8 +1,8 @@
 {
   "name": "trtl-miniwallet",
-  "displayName": "TRTL Miniwallet",
+  "displayName": "TRTL Wallet",
   "expo": {
-    "name": "TRTL Miniwallet",
+    "name": "TRTL Wallet",
     "slug": "trtl-miniwallet",
     "version": "0.1.0",
     "assetBundlePatterns": [
