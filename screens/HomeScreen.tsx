@@ -27,6 +27,7 @@ export function HomeScreen({
     transactions,
     prices,
     refresh,
+    refreshing,
 }: {
     navigation: any;
     user: User | null;
@@ -38,13 +39,10 @@ export function HomeScreen({
     } | null;
     prices: Record<string, number>;
     refresh: () => void;
+    refreshing: boolean;
 }) {
-    const [refreshing, setRefreshing] = useState(false);
-
     const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
         refresh();
-        setTimeout(() => setRefreshing(false), 1000);
     }, []);
 
     useMemo(() => {

@@ -14,15 +14,14 @@ import { ChangePasswordScreen } from "./screens/ChangePasswordScreen";
 import { Disable2FAScreen } from "./screens/Disable2FAScreen";
 import { Enable2FAScreen } from "./screens/Enable2FAScreen";
 import { BackupKeysScreen } from "./screens/BackupKeysScreen";
-import { RefreshControl } from "react-native";
-import { View } from "native-base";
-import { ScrollView } from "react-native-gesture-handler";
 import { RegisterScreen } from "./screens/RegisterScreen";
+import * as Font from "expo-font";
+import { API } from "./utils/api";
 
 const Stack = createStackNavigator<any>();
 
 function App() {
-    const [user, setUser] = React.useState<User | null>(null);
+    const [user, setUser] = React.useState<User | null | undefined>(undefined);
     const [balance, setBalance] = React.useState<{
         locked: number;
         unlocked: number;
@@ -30,75 +29,75 @@ function App() {
     const [transactions, setTransactions] = React.useState<
         Transaction[] | null
     >(null);
-    const [gotAuthInfo, setGotAuthInfo] = React.useState(false);
     const [prices, setPrices] = React.useState<Record<string, number>>({});
-    const [lastFetched, setLastFetched] = React.useState(Date.now());
     const [refreshing, setRefreshing] = React.useState(false);
 
-    const refresh = () => {
-        setLastFetched(Date.now());
+    const refresh = async (): Promise<void> => {
+        setRefreshing(true);
+        const promises: Array<Promise<any>> = [
+            API.prices(),
+            API.balance(),
+            API.transactions(),
+        ];
+        try {
+            const [prices, balance, transactions] = await Promise.all(promises);
+            setTimeout(() => {
+                setPrices(prices);
+                setBalance(balance);
+                setTransactions(transactions);
+                setRefreshing(false);
+            }, 500);
+        } catch (err) {
+            setRefreshing(false);
+        }
     };
 
     const reset = (): void => {
         setUser(null);
         setBalance(null);
         setTransactions(null);
-        setGotAuthInfo(false);
     };
 
     React.useMemo(() => {
         (async (): Promise<void> => {
-            try {
-                const res = await fetch(`${API_URI}/whoami`, {
-                    credentials: "include",
-                    method: "GET",
-                });
-                if (res.status === 200) {
-                    setUser(await res.json());
-                } else {
-                }
-            } catch (err) {
-                console.warn(err.toString());
-            }
-            setGotAuthInfo(true);
+            const whoami = await API.whoami();
+            setUser(whoami);
         })();
+    }, []);
+
+    React.useEffect(() => {
+        (async () =>
+            await Font.loadAsync({
+                Roboto: require("native-base/Fonts/Roboto.ttf"),
+                Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+            }))();
     }, []);
 
     React.useMemo(() => {
         (async (): Promise<void> => {
-            if (user === null) {
+            if (!user) {
                 return;
             }
-            const res = await fetch(`${API_URI}/wallet/balance`, {
-                credentials: "include",
-                method: "GET",
-            });
 
-            if (res.status === 200) {
-                setBalance(await res.json());
-            }
+            const balance = await API.balance();
+            setBalance(balance);
         })();
-    }, [user, lastFetched]);
-
-    React.useMemo(() => {
-        if (user === null) {
-            return;
-        }
-        (async (): Promise<void> => {
-            const res = await fetch(`${API_URI}/wallet/transactions`, {
-                credentials: "include",
-                method: "GET",
-            });
-
-            if (res.status === 200) {
-                setTransactions(await res.json());
-            }
-        })();
-    }, [user, lastFetched]);
+    }, [user]);
 
     React.useMemo(() => {
         (async (): Promise<void> => {
-            if (user === null) {
+            if (!user) {
+                return;
+            }
+
+            const transactions = await API.transactions();
+            setTransactions(transactions);
+        })();
+    }, [user]);
+
+    React.useMemo(() => {
+        (async (): Promise<void> => {
+            if (!user) {
                 return;
             }
             const res = await fetch(`${API_URI}/price`, {
@@ -110,7 +109,7 @@ function App() {
                 setPrices(await res.json());
             }
         })();
-    }, [user, lastFetched]);
+    }, [user]);
 
     return (
         <NavigationContainer>
@@ -119,11 +118,12 @@ function App() {
                     {(props) => (
                         <HomeScreen
                             {...props}
-                            user={user}
+                            user={user || null}
                             balance={balance}
                             transactions={transactions}
-                            gotAuthInfo={gotAuthInfo}
+                            gotAuthInfo={user !== undefined}
                             prices={prices}
+                            refreshing={refreshing}
                             refresh={refresh}
                         />
                     )}
@@ -132,7 +132,9 @@ function App() {
                     {(props) => <LoginScreen {...props} setUser={setUser} />}
                 </Stack.Screen>
                 <Stack.Screen name="receive" options={{ title: "Receive" }}>
-                    {(props) => <ReceiveScreen {...props} user={user} />}
+                    {(props) => (
+                        <ReceiveScreen {...props} user={user || null} />
+                    )}
                 </Stack.Screen>
                 <Stack.Screen name="send" options={{ title: "Send" }}>
                     {(props) => (
@@ -149,7 +151,7 @@ function App() {
                             reset={reset}
                             setUser={setUser}
                             {...props}
-                            user={user}
+                            user={user || null}
                         />
                     )}
                 </Stack.Screen>
@@ -180,7 +182,7 @@ function App() {
                 <Stack.Screen name="backup" options={{ title: "Backup Keys" }}>
                     {(props) => (
                         <BackupKeysScreen
-                            user={user}
+                            user={user || null}
                             setUser={setUser}
                             {...props}
                         />
