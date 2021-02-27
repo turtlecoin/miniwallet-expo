@@ -140,7 +140,7 @@ function App() {
                     {(props) => (
                         <SendScreen
                             {...props}
-                            balance={balance}
+                            balance={balance || { unlocked: 0, locked: 0 }}
                             transactions={transactions}
                             setTransactions={setTransactions}
                         />
