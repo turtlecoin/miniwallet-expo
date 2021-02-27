@@ -15,6 +15,7 @@
       "package": "lol.trtl.miniwallet"
     }
   },
+  "icon": "icon.png",
   "ios": {
     "bundleIdentifier": "lol.trtl.miniwallet",
     "buildNumber": "0.1.1"

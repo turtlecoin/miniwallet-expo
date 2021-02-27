@@ -140,6 +140,7 @@ function App() {
                     {(props) => (
                         <SendScreen
                             {...props}
+                            balance={balance}
                             transactions={transactions}
                             setTransactions={setTransactions}
                         />
