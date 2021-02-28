@@ -8,9 +8,10 @@ export function Navbar() {
     const { index } = state;
     const goTo = navigation.navigate;
     return (
-        <Footer style={{ backgroundColor: "#43b380" }}>
-            <FooterTab>
+        <Footer>
+            <FooterTab  style={{ backgroundColor: "#43b380" }}>
                 <Button
+                    transparent
                     style={{ backgroundColor: "#43b380" }}
                     onPress={() => goTo("home")}
                 >
