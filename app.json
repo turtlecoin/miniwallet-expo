@@ -20,6 +20,7 @@
     "bundleIdentifier": "lol.trtl.miniwallet"
   },
   "android": {
-    "package": "lol.trtl.miniwallet"
+    "package": "lol.trtl.miniwallet",
+    "versionCode": 3
   }
 }
