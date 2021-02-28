@@ -1,26 +1,21 @@
 {
   "name": "TRTL Wallet",
+  "description": "Store, send, and recieve TurtleCoins and otherwise transact on the TurtleCoin network.",
   "displayName": "TRTL Wallet",
   "expo": {
-    "version": "0.2.2",
     "name": "TRTL Wallet",
     "slug": "trtl-miniwallet",
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "bundleIdentifier": "lol.trtl.miniwallet"
-    },
-    "android": {
-      "package": "lol.trtl.miniwallet"
-    },
     "icon": "icon.png"
   },
   "ios": {
-    "bundleIdentifier": "lol.trtl.miniwallet"
+    "bundleIdentifier": "lol.trtl.miniwallet",
+    "buildNumber": "0.2.2"
   },
   "android": {
     "package": "lol.trtl.miniwallet",
-    "versionCode": 3
+    "versionCode": 1
   }
 }
