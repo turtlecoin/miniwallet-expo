@@ -75,6 +75,7 @@ export function SendScreen({
                     <View style={{marginBottom: "3%" }}>
                     <Text style={{
                         marginLeft: "4%",
+                        marginBottom: "5%",
                     }}>
                         Available Balance: {prettyPrintAmount(balance.unlocked + balance.locked)}
                     </Text>
@@ -95,7 +96,7 @@ export function SendScreen({
 
                     <Form>
                         <Item>
-                            <Text>Amount</Text>
+                            <Text style={{color: "#555"}}>Amount</Text>
                             <Input
                                 value={amount}
                                 autoCapitalize={"none"}
@@ -108,7 +109,7 @@ export function SendScreen({
                             />
                         </Item>
                         <Item>
-                            <Text style={{marginRight: "11%"}}>Address</Text>
+                            <Text style={{color: "#555", marginRight: "11%"}}>Address</Text>
                             <Input
                                 value={address}
                                 autoCapitalize={"none"}
@@ -118,7 +119,7 @@ export function SendScreen({
                             />
                         </Item>
                         <Item last>
-                            <Text>PaymentID</Text>
+                            <Text style={{color: "#555"}}>PaymentID</Text>
                             <Input
                                 value={paymentID}
                                 autoCapitalize={"none"}
