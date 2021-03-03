@@ -34,6 +34,13 @@ export function SendScreen({
     const [amount, setAmount] = React.useState("");
     const [totp, setTOTP] = React.useState("");
 
+    const clearForm = () => {
+        setPaymentID("");
+        setAddress("");
+        setAmount("");
+        setTOTP("");
+    };
+
     const submitSend = async (): Promise<void> => {
         setSubmitting(true);
         try {
@@ -56,6 +63,7 @@ export function SendScreen({
                     const copy = [...transactions];
                     copy.unshift(await res.json());
                     setTransactions(copy);
+                    clearForm();
                     alert("Sent transaction!");
                 }
             } else {
