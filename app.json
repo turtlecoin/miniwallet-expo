@@ -9,14 +9,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "icon": "icon.png"
-  },
-  "ios": {
-    "bundleIdentifier": "lol.trtl.miniwallet",
-    "buildNumber": "0.2.3"
-  },
-  "android": {
-    "package": "lol.trtl.miniwallet",
-    "versionCode": 2
+    "icon": "icon.png",
+    "ios": {
+      "bundleIdentifier": "lol.trtl.miniwallet",
+      "buildNumber": "0.2.3"
+    },
+    "android": {
+      "package": "lol.trtl.miniwallet",
+      "versionCode": 2
+    }
   }
 }
