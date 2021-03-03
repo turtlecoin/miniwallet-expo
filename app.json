@@ -16,7 +16,6 @@
     },
     "android": {
       "package": "lol.trtl.miniwallet",
-      "version": "v0.2.4",
       "versionCode": 3
     }
   }
