@@ -49,15 +49,6 @@ export function Disable2FAScreen({
         <Container>
             <Content style={{ padding: "1%", alignContent: "center", flex: 1 }}>
                 <View style={{ padding: "4%" }}>
-                    <Text
-                        style={{
-                            fontSize: 18,
-                            marginLeft: "4%",
-                            marginBottom: "3%",
-                        }}
-                    >
-                        Disable 2FA
-                    </Text>
                     <Form>
                         <Item>
                             <Input

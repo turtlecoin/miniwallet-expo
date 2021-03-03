@@ -140,6 +140,7 @@ function App() {
                     {(props) => (
                         <SendScreen
                             {...props}
+                            user={user || null}
                             balance={balance || { unlocked: 0, locked: 0 }}
                             transactions={transactions}
                             setTransactions={setTransactions}
@@ -161,7 +162,7 @@ function App() {
                     options={{ title: "Change Password" }}
                 >
                     {(props) => (
-                        <ChangePasswordScreen setUser={setUser} {...props} />
+                        <ChangePasswordScreen user={user || null} {...props} />
                     )}
                 </Stack.Screen>
                 <Stack.Screen

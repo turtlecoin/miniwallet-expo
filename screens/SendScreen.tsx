@@ -21,15 +21,18 @@ export function SendScreen({
     transactions,
     setTransactions,
     balance,
+    user,
 }: {
     transactions: Transaction[] | null;
     setTransactions: (txs: Transaction[]) => void;
     balance: {unlocked: number, locked: number};
+    user: User | null;
 }) {
     const [submitting, setSubmitting] = React.useState(false);
     const [paymentID, setPaymentID] = React.useState("");
     const [address, setAddress] = React.useState("");
     const [amount, setAmount] = React.useState("");
+    const [totp, setTOTP] = React.useState("");
 
     const submitSend = async (): Promise<void> => {
         setSubmitting(true);
@@ -45,6 +48,7 @@ export function SendScreen({
                     paymentID,
                     address,
                     amount: humanToAtomic(amt),
+                    totp,
                 }),
             });
             if (res.status === 200) {
@@ -118,7 +122,7 @@ export function SendScreen({
                                 placeholder={"TRTL…HX3"}
                             />
                         </Item>
-                        <Item last>
+                        <Item last={!user?.twoFactor}>
                             <Text style={{color: "#555"}}>PaymentID</Text>
                             <Input
                                 value={paymentID}
@@ -128,6 +132,16 @@ export function SendScreen({
                                 style={{ textAlign: "right" }}
                             />
                         </Item>
+                        {user?.twoFactor && <Item last>
+                            <Text style={{color: "#555"}}>2FA Code</Text>
+                            <Input
+                                value={totp}
+                                autoCapitalize={"none"}
+                                onChangeText={(amt) => setTOTP(amt)}
+                                placeholder="123456"
+                                style={{ textAlign: "right" }}
+                            />
+                        </Item>}
                     </Form>
                 </View>
                 <Button

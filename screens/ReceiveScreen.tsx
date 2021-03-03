@@ -8,8 +8,7 @@ import { User } from "../types";
 import * as FileSystem from "expo-file-system";
 
 export function ReceiveScreen({ user }: { user: User | null }) {
-    const { width, height } = Dimensions.get("window");
-    const [qrCode, setQrCode] = useState("");
+    const { width } = Dimensions.get("window");
     let qrRef = useRef(null);
 
     if (user == null) {

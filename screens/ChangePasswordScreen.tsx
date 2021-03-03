@@ -14,15 +14,16 @@ import { API_URI } from "../config";
 import { User } from "../types";
 
 export function ChangePasswordScreen({
-    setUser,
     navigation,
+    user
 }: {
-    setUser: (user: User) => void;
     navigation: any;
+    user: User | null;
 }) {
     const [oldPassword, setOldPassword] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
+    const [totp, setTOTP] = React.useState("");
 
     const changePassword = async (): Promise<void> => {
         if (newPassword !== confirmPassword) {
@@ -39,6 +40,7 @@ export function ChangePasswordScreen({
             body: JSON.stringify({
                 oldPassword,
                 newPassword,
+                totp,
             }),
         });
         if (res.status === 200) {
@@ -53,15 +55,6 @@ export function ChangePasswordScreen({
         <Container>
             <Content style={{ padding: "1%", alignContent: "center", flex: 1 }}>
                 <View style={{ padding: "4%" }}>
-                    <Text
-                        style={{
-                            fontSize: 18,
-                            marginLeft: "4%",
-                            marginBottom: "3%",
-                        }}
-                    >
-                        Change Your Password
-                    </Text>
                     <Form>
                         <Item>
                             <Input
@@ -83,7 +76,7 @@ export function ChangePasswordScreen({
                                 placeholder="New Password"
                             />
                         </Item>
-                        <Item>
+                        <Item last={user?.twoFactor}>
                             <Input
                                 secureTextEntry={true}
                                 value={confirmPassword}
@@ -93,6 +86,14 @@ export function ChangePasswordScreen({
                                 placeholder="Confirm New Password"
                             />
                         </Item>
+                        {user?.twoFactor && <Item last>
+                            <Input
+                                value={totp}
+                                autoCapitalize={"none"}
+                                onChangeText={(amt) => setTOTP(amt)}
+                                placeholder="2FA Code"
+                            />
+                            </Item>}
                     </Form>
                     <Button
                         block

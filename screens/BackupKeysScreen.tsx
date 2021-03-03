@@ -16,8 +16,6 @@ import { API_URI } from "../config";
 import { User } from "../types";
 
 export function BackupKeysScreen({
-    setUser,
-    navigation,
     user,
 }: {
     setUser: (user: User) => void;
@@ -29,6 +27,7 @@ export function BackupKeysScreen({
         spendKey: "",
         viewKey: "",
     });
+    const [totp, setTOTP] = React.useState("");
 
     const getSecrets = async (): Promise<void> => {
         const res = await fetch(`${API_URI}/wallet/secrets`, {
@@ -39,6 +38,7 @@ export function BackupKeysScreen({
             },
             body: JSON.stringify({
                 password,
+                totp,
             }),
         });
         if (res.status === 200) {
@@ -58,17 +58,8 @@ export function BackupKeysScreen({
                 <View style={{ padding: "4%" }}>
                     {secrets.spendKey == "" && (
                         <View>
-                            <Text
-                                style={{
-                                    fontSize: 18,
-                                    marginLeft: "4%",
-                                    marginBottom: "3%",
-                                }}
-                            >
-                                Back Up Your Keys
-                            </Text>
                             <Form>
-                                <Item>
+                                <Item last={!user.twoFactor}>
                                     <Input
                                         secureTextEntry={true}
                                         value={password}
@@ -78,6 +69,14 @@ export function BackupKeysScreen({
                                         placeholder="Password"
                                     />
                                 </Item>
+                                {user?.twoFactor && <Item last>
+                            <Input
+                                value={totp}
+                                autoCapitalize={"none"}
+                                onChangeText={(amt) => setTOTP(amt)}
+                                placeholder="2FA Code"
+                            />
+                            </Item>}
                             </Form>
                             <Button
                                 block
@@ -94,7 +93,7 @@ export function BackupKeysScreen({
                     )}
                     {secrets.spendKey != "" && (
                         <View>
-                            <Text style={{ marginBottom: "3%" }}>
+                            <Text selectable style={{ marginBottom: "3%" }}>
                                 Private Spend Key:
                             </Text>
                             <TextFixedWidth>{secrets.spendKey}</TextFixedWidth>
